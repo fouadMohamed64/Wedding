@@ -138,6 +138,11 @@ button, input, textarea { font: inherit; color: inherit; }
   border: 1px solid var(--line); box-shadow: 0 0 0 7px rgba(194,161,95,.1), var(--shadow-s);
 }
 
+.monogram--photo { width: 136px; height: 136px; padding: 5px; overflow: hidden; background: #fff; box-shadow: 0 0 0 7px rgba(194,161,95,.18), var(--shadow); }
+.monogram--photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; border-radius: 50%; }
+@media (min-width: 640px) { .monogram--photo { width: 168px; height: 168px; } }
+@media (max-height: 520px) and (orientation: landscape) { .monogram--photo { width: 84px; height: 84px; } }
+
 .anim { opacity: 0; transform: translateY(18px); animation: rise 1s cubic-bezier(.2,.7,.2,1) forwards; animation-delay: var(--d, 0s); }
 @keyframes rise { to { opacity: 1; transform: none; } }
 

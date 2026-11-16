@@ -13,9 +13,9 @@ window.WEDDING_CONFIG = {
   },
   // Optional second event: add `henna: { date, time, mapsUrl }` here AND `henna: {...}` in en/ar below.
 
-  // Music: "" = built-in romantic piano-style wedding instrumental (generated in the browser, no file needed).
-  // To use your own song instead, put it in public/assets/music/ and set e.g. "assets/music/wedding.mp3".
-  musicPath: "",
+  // Music: your song file in public/assets/music/. If the file is missing, the built-in
+  // romantic piano-style instrumental (generated in the browser) plays instead.
+  musicPath: "assets/music/tamer-hosny.mp3",
   musicVolume: 0.55,
 
   // ---- English ----
