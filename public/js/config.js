@@ -13,9 +13,12 @@ window.WEDDING_CONFIG = {
   },
   // Optional second event: add `henna: { date, time, mapsUrl }` here AND `henna: {...}` in en/ar below.
 
-  // Music: "" = built-in romantic piano-style wedding instrumental (generated in the browser, no file needed).
-  // To use your own song instead, put it in public/assets/music/ and set e.g. "assets/music/wedding.mp3".
-  musicPath: "",
+  // Music: "" = built-in tune generated in the browser (no file needed).
+  //   musicStyle "zaffa" = Egyptian wedding-procession style (default), "piano" = soft romantic piano.
+  // To use a real song instead, put it in public/assets/music/ and set e.g. "assets/music/wedding.mp3".
+  // Currently: "Canon in D Major" by Kevin MacLeod (CC BY 3.0) — credited in the footer.
+  musicPath: "assets/music/wedding.mp3",
+  musicStyle: "zaffa",   // built-in tune used if the file can't load
   musicVolume: 0.55,
 
   // ---- English ----

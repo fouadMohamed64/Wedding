@@ -298,6 +298,9 @@ button, input, textarea { font: inherit; color: inherit; }
 
 .footer__credit { margin-top: 22px; font-family: var(--ff-sans); font-size: .66rem; letter-spacing: .16em; text-transform: uppercase; color: var(--brown-s); opacity: .7; }
 
+.footer__credit--music { margin-top: 8px; text-transform: none; letter-spacing: .04em; font-size: .62rem; }
+.footer__credit a { color: inherit; text-underline-offset: 2px; }
+
 /* ---------- language switch ---------- */
 .lang {
   position: fixed; z-index: 150; top: max(12px, env(safe-area-inset-top)); inset-inline-end: max(12px, env(safe-area-inset-right));
