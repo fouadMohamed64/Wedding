@@ -16,9 +16,11 @@ window.WEDDING_CONFIG = {
   // Music: "" = built-in tune generated in the browser (no file needed).
   //   musicStyle "zaffa" = Egyptian wedding-procession style (default), "piano" = soft romantic piano.
   // To use a real song instead, put it in public/assets/music/ and set e.g. "assets/music/wedding.mp3".
-  // Currently: "Canon in D Major" by Kevin MacLeod (CC BY 3.0) — credited in the footer.
-  musicPath: "assets/music/wedding.mp3",
-  musicStyle: "zaffa",   // built-in tune used if the file can't load
+  // Music source, in priority order: youtubeId → musicPath (your own file) → built-in tune.
+  // youtubeId = the part after "v=" in a YouTube link (played through YouTube's official embedded player).
+  youtubeId: "FmyQtbslamM",          // Tamer Hosny – Helm Snen
+  musicPath: "",
+  musicStyle: "zaffa",               // built-in tune used if YouTube/file can't load
   musicVolume: 0.55,
 
   // ---- English ----

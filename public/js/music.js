@@ -173,6 +173,38 @@
     return { play: () => audio.play(), pause: () => audio.pause(), get playing() { return !audio.paused; } };
   }
 
+  /* ---------- engine: YouTube (official IFrame player, audio only — nothing is downloaded) ---------- */
+  function youtubeEngine(videoId, onError) {
+    let player = null, ready = false, pending = false, yt = false;
+    const holder = document.createElement("div");
+    holder.id = "ytMusic"; holder.setAttribute("aria-hidden", "true");
+    holder.style.cssText = "position:fixed;left:-9999px;top:0;width:220px;height:124px;pointer-events:none";
+    holder.innerHTML = '<div id="ytMusicFrame"></div>';
+    document.body.appendChild(holder);
+
+    function create() {
+      player = new YT.Player("ytMusicFrame", {
+        width: "220", height: "124", videoId,
+        playerVars: { autoplay: 0, controls: 0, loop: 1, playlist: videoId, playsinline: 1, rel: 0, modestbranding: 1, disablekb: 1 },
+        events: {
+          onReady() { ready = true; player.setVolume(Math.round(volume * 100)); if (pending) { player.playVideo(); } },
+          onStateChange(e) { yt = e.data === 1 || e.data === 3; render(); },
+          onError() { onError(); }                       // e.g. embedding blocked / video removed
+        }
+      });
+    }
+    window.onYouTubeIframeAPIReady = create;
+    const s = document.createElement("script");
+    s.src = "https://www.youtube.com/iframe_api"; s.async = true; s.onerror = onError;
+    document.head.appendChild(s);
+
+    return {
+      async play() { pending = true; if (ready) player.playVideo(); yt = true; },
+      pause() { pending = false; yt = false; if (ready) player.pauseVideo(); },
+      get playing() { return yt; }
+    };
+  }
+
   /* ---------- controller ---------- */
   const state = { wanted: false };
   let engine;
@@ -193,9 +225,10 @@
   function pause() { state.wanted = false; engine.pause(); render(); }
 
   const builtIn = synthEngine(cfg.musicStyle === "piano" ? "piano" : "zaffa");
-  engine = cfg.musicPath
-    ? fileEngine(cfg.musicPath, () => { engine = builtIn; if (state.wanted) play(); })
-    : builtIn;
+  const fallback = () => { engine = builtIn; if (state.wanted) play(); render(); };   // if the chosen source fails
+  engine = cfg.youtubeId ? youtubeEngine(cfg.youtubeId, fallback)
+         : cfg.musicPath ? fileEngine(cfg.musicPath, fallback)
+         : builtIn;
 
   btn.addEventListener("click", () => (engine.playing ? pause() : play()));
   document.addEventListener("langchange", render);
